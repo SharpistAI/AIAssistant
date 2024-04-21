@@ -120,17 +120,24 @@ try (var stream = Files.newInputStream(path)) {
 <div class="card text-center m-3">
     <div class="card-body">
         <div class="row">
-            @foreach (var pair in questionAnswerPairs)
+            @if (questionAnswerPairs.Count > 0)
             {
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Question:</h5>
-                            <p class="card-text">@pair.Key.Question</p>
-                            <p class="card-text">@pair.Key.Answer</p>
+                @foreach (var pair in questionAnswerPairs)
+                {
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Question:</h5>
+                                <p class="card-text">@pair.Key.Question</p>
+                                <p class="card-text">@pair.Key.Answer</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <div class="spinner"></div>
             }
         </div>
     </div>
@@ -144,7 +151,7 @@ try (var stream = Files.newInputStream(path)) {
     bool IsAnswerExist = false;
     Dictionary<ShortQA, string> questionAnswerPairs = new Dictionary<ShortQA, string>();
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         var client = new AiClient();
         var response = await client.GetResponseAsync(filename, keyword, questionType);

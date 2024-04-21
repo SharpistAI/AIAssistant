@@ -515,29 +515,25 @@ _42         // an identifier, not an integer literal
 <div class="card text-center m-3">
     <div class="card-body">
         <div class="row">
-            @foreach (var pair in questionAnswerPairs)
+            @if (questionAnswerPairs.Count > 0)
             {
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Question:</h5>
-                            <p class="card-text">@pair.Key</p>
-                            <input type="text" @bind="questionAnswerPairs[pair.Key]" />
+                @foreach (var pair in questionAnswerPairs)
+                {
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Question:</h5>
+                                <p class="card-text">@pair.Key</p>
+                                <input type="text" @bind="questionAnswerPairs[pair.Key]"/>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+                <button type="submit">Submit</button>
             }
-            <button @onclick="Callback">Submit</button>
-            @if (IsAnswerExist)
+            else
             {
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Number of correct answer:</h5>
-                            <p class="card-text">@correctAnswers</p>
-                        </div>
-                    </div>
-                </div>
+                <div class="spinner"></div>
             }
         </div>
     </div>
@@ -551,7 +547,7 @@ _42         // an identifier, not an integer literal
     bool IsAnswerExist = false;
     Dictionary<string, string> questionAnswerPairs = new Dictionary<string, string>();
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         var client = new AiClient();
         var response = await client.GetResponseAsync(filename, keyword, questionType);
@@ -561,28 +557,5 @@ _42         // an identifier, not an integer literal
         {
             questionAnswerPairs.Add(question, string.Empty);
         }
-    }
-
-    private async Task EvalAnswer()
-    {
-        var client = new AiClient();
-        foreach (var questionAnswerPair in questionAnswerPairs)
-        {
-            var response = await client.EvaluateAnswerAsync(filename, keyword, questionAnswerPair.Key, questionAnswerPair.Value);
-            Root jsonObject = JsonConvert.DeserializeObject<Root>(response);
-            if (string.IsNullOrWhiteSpace(jsonObject.Content))
-            {
-                if (jsonObject.Content.Contains("True"))
-                {
-                    correctAnswers++;
-                }
-            }
-        }
-    }
-
-    private void Callback()
-    {
-        EvalAnswer().Wait();
-        StateHasChanged();
     }
 }

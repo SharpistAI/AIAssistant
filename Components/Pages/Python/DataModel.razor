@@ -23,24 +23,31 @@
 <div class="card text-center m-3">
     <div class="card-body">
         <div class="row">
-            @foreach (var pair in questionAnswerPairs)
+            @if (questionAnswerPairs.Count > 0)
             {
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Question:</h5>
-                            <p class="card-text">@pair.Key.Question</p>
-                            <ul>
-                                @foreach (var answer in pair.Key.Answers)
-                                {
+                @foreach (var pair in questionAnswerPairs)
+                {
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Question:</h5>
+                                <p class="card-text">@pair.Key.Question</p>
+                                <ul>
+                                    @foreach (var answer in pair.Key.Answers)
+                                    {
 
-                                    <li>@answer</li>
-                                }
-                            </ul>
-                            <p class="card-text">@pair.Key.CorrectAnswer</p>
+                                        <li>@answer</li>
+                                    }
+                                </ul>
+                                <p class="card-text">@pair.Key.CorrectAnswer</p>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
+            }
+            else
+            {
+                <div class="spinner"></div>
             }
             
         </div>
@@ -55,7 +62,7 @@
     bool IsAnswerExist = false;
     Dictionary<QA, string> questionAnswerPairs = new Dictionary<QA, string>();
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         var client = new AiClient();
         var response = await client.GetResponseAsync(filename, keyword, questionType);
