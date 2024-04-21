@@ -1,6 +1,7 @@
 ﻿@implements IDisposable
 
 @inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
@@ -19,15 +20,163 @@
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="python" @onclick="()=>expandSubNavOfPython = !expandSubNavOfPython">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Python
             </NavLink>
+            @if (expandSubNavOfPython)
+            {
+                <div class="nested-tabs">
+                    <!-- Nested tabs for Course 1 -->
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="introduction">
+                            Introduction
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="lexical-analysis">
+                            Lexical analysis
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="data-model">
+                            Data model
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="execution-model">
+                            Execution model
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="import-system">
+                            The import system
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="expressions">
+                            Expressions
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="simple-statements">
+                            Simple statements
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="compound-statements">
+                            Compound statements
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="top-level-components">
+                            Top-level components
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="full-grammar-specification">
+                            Full Grammar specification
+                        </NavLink>
+                    </div>
+                    <!-- Add more nested tabs as needed -->
+
+                </div>
+            }
         </div>
 
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
+            <NavLink class="nav-link" href="java" @onclick="()=>expandSubNavOfJava = !expandSubNavOfJava">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Java
             </NavLink>
+            @if (expandSubNavOfJava)
+            {
+                <div class="nested-tabs">
+                    <!-- Nested tabs for Course 2 -->
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="var-type-identifier">
+                            Var Type Identifier
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="switch-statements">
+                            Switch Statements
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="control-flow">
+                            Control Flow Statements
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="arrays">
+                            Arrays
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="primitive-type-variables">
+                            Primitive Type Variables
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="variables-and-naming">
+                            Variables and Naming
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="go-expressions">
+                            Expressions
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <NavLink class="nav-link" href="operators">
+                            Operators
+                        </NavLink>
+                    </div>
+                    <!-- Add more nested tabs as needed -->
+                </div>
+            }
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="go" @onclick="()=>expandSubNavOfGo = !expandSubNavOfGo">
+                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Golang
+            </NavLink>
+            @if (expandSubNavOfGo)
+            {
+                <div class="nested-tabs">
+                    <!-- Nested tabs for Course 3 -->
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="go-introduction">
+                            Introduction
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="constants">
+                            Constants
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="types">
+                            Types
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="properties">
+                            Properties
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="lexical-elements">
+                            Lexical elements
+                        </NavLink>
+                    </div>
+                    <div class="nav-item px-3">
+                        <NavLink class="nav-link" href="blocks">
+                            Blocks
+                        </NavLink>
+                    </div>
+                    <!-- Add more nested tabs as needed -->
+                </div>
+            }
         </div>
 
         <div class="nav-item px-3">
@@ -70,6 +219,11 @@
 </div>
 
 @code {
+    private bool expandSubNavOfPython;
+    private bool expandSubNavOfJava;
+    private bool expandSubNavOfGo;
+
+
     private string? currentUrl;
 
     protected override void OnInitialized()
@@ -89,4 +243,3 @@
         NavigationManager.LocationChanged -= OnLocationChanged;
     }
 }
-

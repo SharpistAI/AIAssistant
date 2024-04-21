@@ -49,3 +49,16 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.pdf-container iframe {
+    box-shadow: none !important;
+}
+
+.nav-item {
+    padding: 0.5rem 1rem;
+}
+
+.submenu {
+    list-style: none;
+    padding-left: 1rem;
+}

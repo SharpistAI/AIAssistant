@@ -1,0 +1,228 @@
+﻿@page "/switch-statements"
+@using AIAssistant.Model
+@using Newtonsoft.Json
+@rendermode InteractiveServer
+
+<PageTitle>Branching with Switch Statements</PageTitle>
+
+<div class="card-body">
+
+    
+<div class="container" id="main-content">
+
+  <h1>Branching with Switch Statements</h1>
+
+  <div class="row">
+      <div id="content" class="col-9">
+          <div class="line-numbers">
+              <p><a id="intro">&nbsp;</a></p>
+<h2 id="using-switch-statements-to-control-the-flow-of-your-program">Using Switch Statements to Control the Flow of Your Program</h2>
+<p>The <code>switch</code> statement is one of the five control flow statements available in the Java language. It allows for any number of execution path. A <code>switch</code> statement takes a selector variable as an argument and uses the value of this variable to choose the path that will be executed. </p>
+<p>You must choose the type of your selector variable among the following types: </p>
+<ul>
+<li><code>byte</code>, <code>short</code>, <code>char</code>, and <code>int</code> primitive data types</li>
+<li><code>Character</code>, <code>Byte</code>, <code>Short</code>, and <code>Integer</code> wrapper types</li>
+<li>enumerated types</li>
+<li>the <code>String</code> type. </li>
+</ul>
+<p>It is worth noting that the following primitive types cannot be used for the type of your selector variable: <code>boolean</code>, <code>long</code>, <code>float</code>, and <code>double</code>. </p>
+<p>Let us see a first example of a <code>switch</code> statement. </p>
+<pre><code class="language-java">int quarter = ...; // any value
+
+String quarterLabel = null;
+switch (quarter) {
+  case 0: quarterLabel = &quot;Q1 - Winter&quot;; 
+          break;
+  case 1: quarterLabel = &quot;Q2 - Spring&quot;; 
+          break;
+  case 2: quarterLabel = &quot;Q3 - Summer&quot;; 
+          break;
+  case 3: quarterLabel = &quot;Q3 - Summer&quot;; 
+          break;
+  default: quarterLabel = &quot;Unknown quarter&quot;;
+};
+</code></pre>
+<p>The body of a <code>switch</code> statement is known as a <code>switch</code> block. A statement in the <code>switch</code> block can be labeled with one or more <code>case</code> or <code>default</code> labels. The <code>switch</code> statement evaluates its expression, then executes all statements that follow the matching <code>case</code> label.</p>
+<p>You may have noticed the use of the <code>break</code> keyword. Each <code>break</code> statement terminates the enclosing <code>switch</code> statement. Control flow continues with the first statement following the <code>switch</code> block. The <code>break</code> statements are necessary because without them, statements in <code>switch</code> blocks fall through. All statements after the matching <code>case</code> label are executed in sequence, regardless of the expression of subsequent <code>case</code> labels, until a <code>break</code> statement is encountered. </p>
+<p>The following code uses fall through to fill the <code>futureMonths</code> list. </p>
+<pre><code class="language-java">int month = 8;
+List&lt;String&gt; futureMonths = new ArrayList&lt;&gt;();
+
+switch (month) {
+  case 1:  futureMonths.add(&quot;January&quot;);
+  case 2:  futureMonths.add(&quot;February&quot;);
+  case 3:  futureMonths.add(&quot;March&quot;);
+  case 4:  futureMonths.add(&quot;April&quot;);
+  case 5:  futureMonths.add(&quot;May&quot;);
+  case 6:  futureMonths.add(&quot;June&quot;);
+  case 7:  futureMonths.add(&quot;July&quot;);
+  case 8:  futureMonths.add(&quot;August&quot;);
+  case 9:  futureMonths.add(&quot;September&quot;);
+  case 10: futureMonths.add(&quot;October&quot;);
+  case 11: futureMonths.add(&quot;November&quot;);
+  case 12: futureMonths.add(&quot;December&quot;);
+           break;
+  default: break;
+}
+</code></pre>
+<p>Technically, the final <code>break</code> is not required because flow falls out of the <code>switch</code> statement. Using a <code>break</code> is recommended so that modifying the code is easier and less error prone. </p>
+<p>The <code>default</code> section handles all values that are not explicitly handled by one of the <code>case</code> sections.</p>
+<p>The following code example, shows how a statement can have multiple <code>case</code> labels. The code example calculates the number of days in a particular month:</p>
+<pre><code class="language-java">int month = 2;
+int year = 2021;
+int numDays = 0;
+
+switch (month) {
+  case 1: case 3: case 5:   // January March May
+  case 7: case 8: case 10:  // July August October
+  case 12:
+      numDays = 31;
+      break;
+  case 4: case 6:   // April June
+  case 9: case 11:  // September November
+      numDays = 30;
+      break;
+  case 2: // February
+      if (((year % 4 == 0) &amp;&amp; 
+           !(year % 100 == 0))
+           || (year % 400 == 0))
+          numDays = 29;
+      else
+          numDays = 28;
+      break;
+  default:
+      System.out.println(&quot;Invalid month.&quot;);
+      break;
+}
+</code></pre>
+<p>This code has one statement for more than one <code>case</code>. </p>
+<p><a id="choosing-between-switch-and-if">&nbsp;</a></p>
+<h2 id="choosing-between-switch-statements-and-if-then-else-statements">Choosing Between Switch Statements and If-then-else Statements</h2>
+<p>Deciding whether to use <code>if-then-else</code> statements or a <code>switch</code> statement is based on readability and the expression that the statement is testing. An <code>if-then-else</code> statement can test expressions based on ranges of values or conditions, whereas a <code>switch</code> statement tests expressions based only on a single integer, enumerated value, or <code>String</code> object.</p>
+<p>For instance, the following code could be written with a <code>switch</code> statement. </p>
+<pre><code class="language-java">int month = ...; // any month
+if (month == 1) {
+  System.out.println(&quot;January&quot;);
+} else if (month == 2) {
+  System.out.println(&quot;February&quot;);
+} ... // and so on
+</code></pre>
+<p>On the other hand the following could not be written with a <code>switch</code> statement, because <code>switch</code> statements do not support labels of type <code>boolean</code>.</p>
+<pre><code class="language-java">int temperature = ...; // any temperature
+if (temperature &lt; 0) {
+  System.out.println(&quot;Water is ice&quot;);
+} else if (temperature &lt; 100){
+  System.out.println(&quot;Water is liquid, known as water&quot;);
+} else {
+  System.out.println(&quot;Water is vapor&quot;);
+}
+</code></pre>
+<p><a id="case-strings">&nbsp;</a></p>
+<h2 id="using-string-as-a-type-for-the-case-labels">Using String as a Type for the Case Labels</h2>
+<p>In Java SE 7 and later, you can use a <code>String</code> object in the <code>switch</code> statement&#39;s expression. The following code example displays the number of the month based on the value of the <code>String</code> named month. </p>
+<pre><code class="language-java">String month = ...; // any month
+int monthNumber = -1;
+
+switch (month.toLowerCase()) {
+  case &quot;january&quot;:
+      monthNumber = 1;
+      break;
+  case &quot;february&quot;:
+      monthNumber = 2;
+      break;
+  case &quot;march&quot;:
+      monthNumber = 3;
+      break;
+  case &quot;april&quot;:
+      monthNumber = 4;
+      break;
+  case &quot;may&quot;:
+      monthNumber = 5;
+      break;
+  case &quot;june&quot;:
+      monthNumber = 6;
+      break;
+  case &quot;july&quot;:
+      monthNumber = 7;
+      break;
+  case &quot;august&quot;:
+      monthNumber = 8;
+      break;
+  case &quot;september&quot;:
+      monthNumber = 9;
+      break;
+  case &quot;october&quot;:
+      monthNumber = 10;
+      break;
+  case &quot;november&quot;:
+      monthNumber = 11;
+      break;
+  case &quot;december&quot;:
+      monthNumber = 12;
+      break;
+  default: 
+      monthNumber = 0;
+      break;
+}
+</code></pre>
+<p>The <code>String</code> in the <code>switch</code> expression is compared with the expressions associated with each <code>case</code> label as if the <code>String.equals()</code> method were being used. In order for this example to accept any month regardless of case, month is converted to lowercase (with the <code>toLowerCase()</code> method), and all the strings associated with the <code>case</code> labels are in lowercase.</p>
+<p><a id="null-selector">&nbsp;</a></p>
+<h2 id="null-selector-variables">Null Selector Variables</h2>
+<p>The selector variable of a <code>switch</code> statement can be an object, so this object can be null. You should protect your code from null selector variables, because in this case the switch statement will throw a <code>NullPointerException</code>.</p>
+
+
+              
+          </div>
+      </div>
+
+      <div id="sidemenu" class="col-3">
+ 
+</div>
+</div>
+</div>
+
+
+</div>
+
+
+
+
+<div class="card text-center m-3">
+    <div class="card-body">
+        <div class="row">
+            @foreach (var pair in questionAnswerPairs)
+            {
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question:</h5>
+                            <p class="card-text">@pair.Key.Question</p>
+                            <p class="card-text">@pair.Key.Answer</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@code
+{
+    string filename = "Java Branching with Switch Statements.html";
+    string keyword = "Java";
+    string questionType = "ShortAnswer";
+    int correctAnswers = 0;
+    bool IsAnswerExist = false;
+    Dictionary<ShortQA, string> questionAnswerPairs = new Dictionary<ShortQA, string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = new AiClient();
+        var response = await client.GetResponseAsync(filename, keyword, questionType);
+        Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(response);
+        var questions = Parser.ParseShortQa(myDeserializedClass.Content);
+        foreach (var question in questions)
+        {
+            questionAnswerPairs.Add(question, string.Empty);
+        }
+    }
+}

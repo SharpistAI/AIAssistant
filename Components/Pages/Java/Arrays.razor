@@ -1,0 +1,366 @@
+﻿@page "/arrays"
+@using AIAssistant.Model
+@using Newtonsoft.Json
+@rendermode InteractiveServer
+
+<PageTitle>Creating Arrays</PageTitle>
+
+<div class="card-body">
+
+    <div class="container" id="main-content">
+  <h1>Creating Arrays in Your Programs</h1>
+  <div class="row">
+    <div id="content" class="col-9">
+      <div class="line-numbers">
+        <p><a id="intro">&nbsp;</a></p>
+        <h2 id="arrays">Arrays</h2>
+        <p>An <em>array</em> is a container object that holds a fixed number of values of a single type. The length of
+          an array is established when the array is created. After creation, its length is fixed. You have seen an
+          example of arrays already, in the main method of the &quot;Hello World!&quot; application. This section
+          discusses arrays in greater detail.</p>
+
+        <p>Each item in an array is called an <em>element</em>, and each element is accessed by its numerical
+          <em>index</em>. As shown in the preceding illustration, numbering begins with 0. The 6th element, for example,
+          would therefore be accessed at index 5.
+        </p>
+        <p>The following program, <code>ArrayDemo</code>, creates an array of integers, puts some values in the array,
+          and prints each value to standard output.</p>
+        <pre><code class="language-java">class ArrayDemo {
+  public static void main(String[] args) {
+      // declares an array of integers
+      int[] anArray;
+
+      // allocates memory for 10 integers
+      anArray = new int[10];
+
+      // initialize first element
+      anArray[0] = 100;
+      // initialize second element
+      anArray[1] = 200;
+      // and so forth
+      anArray[2] = 300;
+      anArray[3] = 400;
+      anArray[4] = 500;
+      anArray[5] = 600;
+      anArray[6] = 700;
+      anArray[7] = 800;
+      anArray[8] = 900;
+      anArray[9] = 1000;
+
+      System.out.println(&quot;Element at index 0: &quot;
+                         + anArray[0]);
+      System.out.println(&quot;Element at index 1: &quot;
+                         + anArray[1]);
+      System.out.println(&quot;Element at index 2: &quot;
+                         + anArray[2]);
+      System.out.println(&quot;Element at index 3: &quot;
+                         + anArray[3]);
+      System.out.println(&quot;Element at index 4: &quot;
+                         + anArray[4]);
+      System.out.println(&quot;Element at index 5: &quot;
+                         + anArray[5]);
+      System.out.println(&quot;Element at index 6: &quot;
+                         + anArray[6]);
+      System.out.println(&quot;Element at index 7: &quot;
+                         + anArray[7]);
+      System.out.println(&quot;Element at index 8: &quot;
+                         + anArray[8]);
+      System.out.println(&quot;Element at index 9: &quot;
+                         + anArray[9]);
+  }
+}
+</code></pre>
+        <p>The output from this program is:</p>
+        <pre><code class="language-shell">Element at index 0: 100
+Element at index 1: 200
+Element at index 2: 300
+Element at index 3: 400
+Element at index 4: 500
+Element at index 5: 600
+Element at index 6: 700
+Element at index 7: 800
+Element at index 8: 900
+Element at index 9: 1000
+</code></pre>
+        <p>In a real-world programming situation, you would probably use one of the supported looping constructs to
+          iterate through each element of the array, rather than write each line individually as in the preceding
+          example. However, the example clearly illustrates the array syntax. You will learn about the various looping
+          constructs (for, while, and do-while) in the <a href="/learn/language-basics/controlling-flow/">Control
+            Flow</a> section.</p>
+        <p><a id="declaring">&nbsp;</a></p>
+        <h2 id="declaring-a-variable-to-refer-to-an-array">Declaring a Variable to Refer to an Array</h2>
+        <p>The preceding program declares an array (named <code>anArray</code>) with the following line of code:</p>
+        <pre><code class="language-java">// declares an array of integers
+int[] anArray;
+</code></pre>
+        <p>Like declarations for variables of other types, an array declaration has two components: the array&#39;s type
+          and the array&#39;s name. An array&#39;s type is written as <code>type[]</code>, where <code>type</code> is
+          the data type of the contained elements; the brackets are special symbols indicating that this variable holds
+          an array. The size of the array is not part of its type (which is why the brackets are empty). An array&#39;s
+          name can be anything you want, provided that it follows the rules and conventions as discussed in the <a
+            href="/learn/classes-objects/creating-classes/">Classes</a> section. As with variables of other types, the
+          declaration does not actually create an array; it simply tells the compiler that this variable will hold an
+          array of the specified type.</p>
+        <p>Similarly, you can declare arrays of other types:</p>
+        <pre><code class="language-java">byte[] anArrayOfBytes;
+short[] anArrayOfShorts;
+long[] anArrayOfLongs;
+float[] anArrayOfFloats;
+double[] anArrayOfDoubles;
+boolean[] anArrayOfBooleans;
+char[] anArrayOfChars;
+String[] anArrayOfStrings;
+</code></pre>
+        <p>You can also place the brackets after the array&#39;s name:</p>
+        <pre><code class="language-java">// this form is discouraged
+float anArrayOfFloats[];
+</code></pre>
+        <p>However, convention discourages this form; the brackets identify the array type and should appear with the
+          type designation.</p>
+        <p><a id="creating-initializing-accessing">&nbsp;</a></p>
+        <h2 id="creating-initializing-and-accessing-an-array">Creating, Initializing, and Accessing an Array</h2>
+        <p>One way to create an array is with the <code>new</code> operator. The next statement in the
+          <code>ArrayDemo</code> program allocates an array with enough memory for 10 integer elements and assigns the
+          array to the <code>anArray</code> variable.
+        </p>
+        <pre><code class="language-java">// create an array of integers
+anArray = new int[10];
+</code></pre>
+        <p>If this statement is missing, then the compiler prints an error like the following, and compilation fails:
+        </p>
+        <pre><code class="language-shell">ArrayDemo.java:4: Variable anArray may not have been initialized.
+</code></pre>
+        <p>The next few lines assign values to each element of the array:</p>
+        <pre><code class="language-java">anArray[0] = 100; // initialize first element
+anArray[1] = 200; // initialize second element
+anArray[2] = 300; // and so forth
+</code></pre>
+        <p>Each array element is accessed by its numerical index:</p>
+        <pre><code class="language-java">System.out.println(&quot;Element 1 at index 0: &quot; + anArray[0]);
+System.out.println(&quot;Element 2 at index 1: &quot; + anArray[1]);
+System.out.println(&quot;Element 3 at index 2: &quot; + anArray[2]);
+</code></pre>
+        <p>Alternatively, you can use the shortcut syntax to create and initialize an array:</p>
+        <pre><code class="language-java">int[] anArray = {
+  100, 200, 300,
+  400, 500, 600,
+  700, 800, 900, 1000
+};
+</code></pre>
+        <p>Here the length of the array is determined by the number of values provided between braces and separated by
+          commas.</p>
+        <p>You can also declare an array of arrays (also known as a multidimensional array) by using two or more sets of
+          brackets, such as <code>String[][]</code> names. Each element, therefore, must be accessed by a corresponding
+          number of index values.</p>
+        <p>In the Java programming language, a multidimensional array is an array whose components are themselves
+          arrays. This is unlike arrays in C or Fortran. A consequence of this is that the rows are allowed to vary in
+          length, as shown in the following <code>MultiDimArrayDemo</code> program:</p>
+        <pre><code class="language-java">class MultiDimArrayDemo {
+  public static void main(String[] args) {
+      String[][] names = {
+          {&quot;Mr. &quot;, &quot;Mrs. &quot;, &quot;Ms. &quot;},
+          {&quot;Smith&quot;, &quot;Jones&quot;}
+      };
+      // Mr. Smith
+      System.out.println(names[0][0] + names[1][0]);
+      // Ms. Jones
+      System.out.println(names[0][2] + names[1][1]);
+  }
+}
+</code></pre>
+        <p>The output from this program is:</p>
+        <pre><code class="language-shell">Mr. Smith
+Ms. Jones
+</code></pre>
+        <p>Finally, you can use the built-in <code>length</code> property to determine the size of any array. The
+          following code prints the array&#39;s size to standard output:</p>
+        <pre><code class="language-java">System.out.println(anArray.length);
+</code></pre>
+        <p><a id="copying">&nbsp;</a></p>
+        <h2 id="copying-arrays">Copying Arrays</h2>
+        <p>The <a href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/System.html"
+            target="_blank" rel="noopener noreferrer"><code>System</code></a> class has an <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/System.html#arraycopy(java.lang.Object,int,java.lang.Object,int,int)"
+            target="_blank" rel="noopener noreferrer"><code>arraycopy()</code></a> method that you can use to
+          efficiently copy data from one array into another:</p>
+        <pre><code class="language-java">public static void arraycopy(Object src, int srcPos,
+                           Object dest, int destPos, int length)
+</code></pre>
+        <p>The two <code>Object</code> arguments specify the array to copy from and the array to copy to. The three
+          <code>int</code> arguments specify the starting position in the source array, the starting position in the
+          destination array, and the number of array elements to copy.
+        </p>
+        <p>The following program, <code>ArrayCopyDemo</code>, declares an array of <code>String</code> elements. It uses
+          the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/System.html#arraycopy(java.lang.Object,int,java.lang.Object,int,int)"
+            target="_blank" rel="noopener noreferrer"><code>System.arraycopy()</code></a> method to copy a subsequence
+          of array components into a second array:</p>
+        <pre><code class="language-java">class ArrayCopyDemo {
+  public static void main(String[] args) {
+      String[] copyFrom = {
+          &quot;Affogato&quot;, &quot;Americano&quot;, &quot;Cappuccino&quot;, &quot;Corretto&quot;, &quot;Cortado&quot;,
+          &quot;Doppio&quot;, &quot;Espresso&quot;, &quot;Frappucino&quot;, &quot;Freddo&quot;, &quot;Lungo&quot;, &quot;Macchiato&quot;,
+          &quot;Marocchino&quot;, &quot;Ristretto&quot; };
+
+      String[] copyTo = new String[7];
+      System.arraycopy(copyFrom, 2, copyTo, 0, 7);
+      for (String coffee : copyTo) {
+          System.out.print(coffee + &quot; &quot;);
+      }
+  }
+}
+</code></pre>
+        <p>The output from this program is:</p>
+        <pre><code class="language-shell">Cappuccino Corretto Cortado Doppio Espresso Frappucino Freddo
+</code></pre>
+        <p><a id="manipulating">&nbsp;</a></p>
+        <h2 id="array-manipulations">Array Manipulations</h2>
+        <p>Arrays are a powerful and useful concept used in programming. Java SE provides methods to perform some of the
+          most common manipulations related to arrays. For instance, the <code>ArrayCopyDemo</code> example uses the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/System.html#arraycopy(java.lang.Object,int,java.lang.Object,int,int)"
+            target="_blank" rel="noopener noreferrer"><code>arraycopy()</code></a> method of the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/lang/System.html" target="_blank"
+            rel="noopener noreferrer"><code>System</code></a> class instead of manually iterating through the elements
+          of the source array and placing each one into the destination array. This is performed behind the scenes,
+          enabling the developer to use just one line of code to call the method.</p>
+        <p>For your convenience, Java SE provides several methods for performing array manipulations (common tasks, such
+          as copying, sorting and searching arrays) in the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html" target="_blank"
+            rel="noopener noreferrer"><code>java.util.Arrays</code></a> class. For instance, the previous example can be
+          modified to use the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html" target="_blank"
+            rel="noopener noreferrer"><code>java.util.Arrays</code></a> method of the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html" target="_blank"
+            rel="noopener noreferrer"><code>java.util.Arrays</code></a> class, as you can see in the
+          <code>ArrayCopyOfDemo</code> example. The difference is that using the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html" target="_blank"
+            rel="noopener noreferrer"><code>java.util.Arrays</code></a> method does not require you to create the
+          destination array before calling the method, because the destination array is returned by the method:
+        </p>
+        <pre><code class="language-java">class ArrayCopyOfDemo {
+  public static void main(String[] args) {
+      String[] copyFrom = {
+          &quot;Affogato&quot;, &quot;Americano&quot;, &quot;Cappuccino&quot;, &quot;Corretto&quot;, &quot;Cortado&quot;,
+          &quot;Doppio&quot;, &quot;Espresso&quot;, &quot;Frappucino&quot;, &quot;Freddo&quot;, &quot;Lungo&quot;, &quot;Macchiato&quot;,
+          &quot;Marocchino&quot;, &quot;Ristretto&quot; };
+
+      String[] copyTo = java.util.Arrays.copyOfRange(copyFrom, 2, 9);
+      for (String coffee : copyTo) {
+          System.out.print(coffee + &quot; &quot;);
+      }
+  }
+}
+</code></pre>
+        <p>As you can see, the output from this program is the same, although it requires fewer lines of code. Note that
+          the second parameter of the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html" target="_blank"
+            rel="noopener noreferrer"><code>java.util.Arrays</code></a> method is the initial index of the range to be
+          copied, inclusively, while the third parameter is the final index of the range to be copied, exclusively. In
+          this example, the range to be copied does not include the array element at index 9 (which contains the string
+          <code>Lungo</code>).
+        </p>
+        <p>Some other useful operations provided by methods in the <a
+            href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html" target="_blank"
+            rel="noopener noreferrer"><code>java.util.Arrays</code></a> class are:</p>
+        <ul>
+          <li>Searching an array for a specific value to get the index at which it is placed (the <a
+              href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html#binarySearch(int%5B%5D,int)"
+              target="_blank" rel="noopener noreferrer"><code>binarySearch()</code></a> method).</li>
+          <li>Comparing two arrays to determine if they are equal or not (the <a
+              href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html#equals(int%5B%5D,int%5B%5D)"
+              target="_blank" rel="noopener noreferrer"><code>equals()</code></a> method).</li>
+          <li>Filling an array to place a specific value at each index (the <a
+              href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html#fill(int%5B%5D,int)"
+              target="_blank" rel="noopener noreferrer"><code>fill()</code></a> method).</li>
+          <li>Sorting an array into ascending order. This can be done either sequentially, using the <a
+              href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html#sort(int%5B%5D)"
+              target="_blank" rel="noopener noreferrer"><code>sort()</code></a> method, or concurrently, using the <a
+              href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html#parallelSort(int%5B%5D)"
+              target="_blank" rel="noopener noreferrer"><code>parallelSort()</code></a> method introduced in Java SE 8.
+            Parallel sorting of large arrays on multiprocessor systems is faster than sequential array sorting.</li>
+          <li>Creating a stream that uses an array as its source (the <a
+              href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html#stream(int%5B%5D)"
+              target="_blank" rel="noopener noreferrer"><code>stream()</code></a> method). For example, the following
+            statement prints the contents of the <code>copyTo</code> array in the same way as in the previous example:
+          </li>
+        </ul>
+        <pre><code class="language-java">java.util.Arrays.stream(copyTo).map(coffee -&gt; coffee + &quot; &quot;).forEach(System.out::print);
+</code></pre>
+        <p>See Aggregate Operations for more information about streams.</p>
+        <ul>
+          <li>Converting an array to a string. The <a
+              href="https://docs.oracle.com/en/java/javase/22/docs/api/java.base/java/util/Arrays.html#toString(int%5B%5D)"
+              target="_blank" rel="noopener noreferrer"><code>toString()</code></a> method converts each element of the
+            array to a string, separates them with commas, then surrounds them with brackets. For example, the following
+            statement converts the <code>copyTo</code> array to a string and prints it:</li>
+        </ul>
+        <pre><code class="language-java">System.out.println(java.util.Arrays.toString(copyTo));
+</code></pre>
+        <p>This statement prints the following:</p>
+        <pre><code class="language-shell">[Cappuccino, Corretto, Cortado, Doppio, Espresso, Frappucino, Freddo]
+</code></pre>
+        <p><a id="wrapping-up">&nbsp;</a></p>
+        <h2 id="wrapping-up-variables-and-arrays">Wrapping-up Variables and Arrays</h2>
+        <p>The Java programming language uses both &quot;fields&quot; and &quot;variables&quot; as part of its
+          terminology. Instance variables (non-static fields) are unique to each instance of a class. Class variables
+          (static fields) are fields declared with the static modifier; there is exactly one copy of a class variable,
+          regardless of how many times the class has been instantiated. Local variables store temporary state inside a
+          method. Parameters are variables that provide extra information to a method; both local variables and
+          parameters are always classified as &quot;variables&quot; (not &quot;fields&quot;). When naming your fields or
+          variables, there are rules and conventions that you should (or must) follow.</p>
+        <p>The eight primitive data types are: <code>byte</code>, <code>short</code>, <code>int</code>,
+          <code>long</code>, <code>float</code>, <code>double</code>, <code>boolean</code>, and <code>char</code>. The
+          <code>java.lang.String</code> class represents character strings. The compiler will assign a reasonable
+          default value for fields of the above types; for local variables, a default value is never assigned.
+        </p>
+        <p>A literal is the source code representation of a fixed value. An array is a container object that holds a
+          fixed number of values of a single type. The length of an array is established when the array is created.
+          After creation, its length is fixed.</p>
+      </div>
+      </div>
+      </div>
+      </div>
+
+</div>
+
+
+
+<div class="card text-center m-3">
+    <div class="card-body">
+        <div class="row">
+            @foreach (var pair in questionAnswerPairs)
+            {
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question:</h5>
+                            <p class="card-text">@pair.Key.Question</p>
+                            <p class="card-text">@pair.Key.Answer</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@code
+{
+    string filename = "Java Creating Arrays in Your Programs.html";
+    string keyword = "Java";
+    string questionType = "ShortAnswer";
+    int correctAnswers = 0;
+    bool IsAnswerExist = false;
+    Dictionary<ShortQA, string> questionAnswerPairs = new Dictionary<ShortQA, string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = new AiClient();
+        var response = await client.GetResponseAsync(filename, keyword, questionType);
+        Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(response);
+        var questions = Parser.ParseShortQa(myDeserializedClass.Content);
+        foreach (var question in questions)
+        {
+            questionAnswerPairs.Add(question, string.Empty);
+        }
+    }
+}

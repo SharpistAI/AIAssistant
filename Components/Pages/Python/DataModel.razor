@@ -1,0 +1,69 @@
+﻿@page "/data-model"
+@using AIAssistant.Model
+@using Newtonsoft.Json
+@rendermode InteractiveServer
+
+<PageTitle>Data model</PageTitle>
+
+<div class="card-body">
+
+    <div class="pdf-container" style="overflow-x: hidden;">
+        <iframe src="pdf\Data model.pdf"
+                width="100%"
+                height="1000px"
+                frameborder="0"
+                style="border: none; box-shadow: none !important;">
+        </iframe>
+    </div>
+
+</div>
+
+
+
+<div class="card text-center m-3">
+    <div class="card-body">
+        <div class="row">
+            @foreach (var pair in questionAnswerPairs)
+            {
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question:</h5>
+                            <p class="card-text">@pair.Key.Question</p>
+                            <ul>
+                                @foreach (var answer in pair.Key.Answers)
+                                {
+
+                                    <li>@answer</li>
+                                }
+                            </ul>
+                            <p class="card-text">@pair.Key.CorrectAnswer</p>
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+    </div>
+</div>
+@code
+{
+    string filename = "Python Data model.html";
+    string keyword = "Python";
+    string questionType = "MultiChoice";
+    int correctAnswers = 0;
+    bool IsAnswerExist = false;
+    Dictionary<QA, string> questionAnswerPairs = new Dictionary<QA, string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = new AiClient();
+        var response = await client.GetResponseAsync(filename, keyword, questionType);
+        Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(response);
+        var questions = Parser.ParseMultiChoice(myDeserializedClass.Content);
+        foreach (var question in questions)
+        {
+            questionAnswerPairs.Add(question, string.Empty);
+        }
+    }
+}
