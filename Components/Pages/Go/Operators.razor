@@ -1,0 +1,587 @@
+﻿@page "/operators"
+@rendermode InteractiveServer
+
+<PageTitle>Using Operators</PageTitle>
+
+<div class="card-body">
+
+    <div class="container" id="main-content">
+        <h1>Using Operators in Your Programs</h1>
+        <div class="row">
+            <div id="content" class="col-9">
+                <div class="line-numbers">
+                    <p><a id="intro">&nbsp;</a></p>
+                    <h2 id="operators">Operators</h2>
+                    <p>
+                        Now that you have learned how to declare and initialize variables, you probably want to know how to <em>
+                            do
+                            something
+                        </em> with them. Learning the operators of the Java programming language is a good place to start.
+                        Operators are special symbols that perform specific operations on one, two, or three operands, and then return
+                        a result.
+                    </p>
+                    <p>
+                        As we explore the operators of the Java programming language, it may be helpful for you to know ahead of time
+                        which operators have the highest precedence. The operators in the following table are listed according to
+                        precedence order. The closer to the top of the table an operator appears, the higher its precedence. Operators
+                        with higher precedence are evaluated before operators with relatively lower precedence. Operators on the same
+                        line have equal precedence. When operators of equal precedence appear in the same expression, a rule must
+                        govern which is evaluated first. All binary operators except for the assignment operators are evaluated from
+                        left to right; assignment operators are evaluated right to left.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Operators</th>
+                                <th>Precedence</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>postfix</td>
+                                <td><code>expr++</code> <code>expr--</code></td>
+                            </tr>
+                            <tr>
+                                <td>unary</td>
+                                <td>
+                                    <code>++expr</code> <code>--expr</code> <code>+expr</code> <code>-expr</code> <code>~</code>
+                                    <code>!</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>multiplicative</td>
+                                <td><code>*</code> <code>/</code> <code>%</code></td>
+                            </tr>
+                            <tr>
+                                <td>additive</td>
+                                <td><code>+</code> <code>-</code></td>
+                            </tr>
+                            <tr>
+                                <td>shift</td>
+                                <td><code>&lt;&lt;</code> <code>&gt;&gt;</code> <code>&gt;&gt;&gt;</code></td>
+                            </tr>
+                            <tr>
+                                <td>relational</td>
+                                <td><code>&lt;</code> <code>&gt;</code> <code>&lt;=</code> <code>&gt;=</code> <code>instanceof</code></td>
+                            </tr>
+                            <tr>
+                                <td>equality</td>
+                                <td><code>==</code> <code>!=</code></td>
+                            </tr>
+                            <tr>
+                                <td>bitwise AND</td>
+                                <td><code>&amp;</code></td>
+                            </tr>
+                            <tr>
+                                <td>bitwise exclusive OR</td>
+                                <td><code>^</code></td>
+                            </tr>
+                            <tr>
+                                <td>bitwise inclusive OR</td>
+                                <td><code>&#124;</code></td>
+                            </tr>
+                            <tr>
+                                <td>logical AND</td>
+                                <td><code>&amp;&amp;</code></td>
+                            </tr>
+                            <tr>
+                                <td>logical OR</td>
+                                <td><code>&#124;&#124;</code></td>
+                            </tr>
+                            <tr>
+                                <td>ternary</td>
+                                <td><code>? :</code></td>
+                            </tr>
+                            <tr>
+                                <td>assignment</td>
+                                <td>
+                                    <code>=</code> <code>+=</code> <code>-=</code> <code>*=</code> <code>/=</code> <code>%=</code>
+                                    <code>&amp;=</code> <code>^=</code> <code>&#124;=</code> <code>&lt;&lt;=</code> <code>&gt;&gt;=</code>
+                                    <code>&gt;&gt;&gt;=</code>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        In general-purpose programming, certain operators tend to appear more frequently than others; for example,
+                        the assignment operator <code>=</code> is far more common than the unsigned right shift operator
+                        <code>&gt;&gt;&gt;</code>. With that in mind, the following discussion focuses first on the operators that
+                        you&#39;re most likely to use on a regular basis, and ends focusing on those that are less common. Each
+                        discussion is accompanied by sample code that you can compile and run. Studying its output will help reinforce
+                        what you&#39;ve just learned.
+                    </p>
+                    <p><a id="assignement">&nbsp;</a></p>
+                    <h2 id="the-simple-assignment-operator">The Simple Assignment Operator</h2>
+                    <p>
+                        One of the most common operators that you&#39;ll encounter is the simple assignment operator <code>=</code>.
+                        You saw this operator in the <code>Bicycle</code> class; it assigns the value on its right to the operand on
+                        its left:
+                    </p>
+                    <pre><code class="language-java">int cadence = 0;
+int speed = 0;
+int gear = 1;
+</code></pre>
+                    <p>
+                        This operator can also be used on objects to assign object references, as discussed in the section <a href="/learn/classes-objects/creating-objects/">Creating Objects</a>.
+                    </p>
+                    <p><a id="arithmetic">&nbsp;</a></p>
+                    <h2 id="the-arithmetic-operators">The Arithmetic Operators</h2>
+                    <p>
+                        The Java programming language provides operators that perform addition, subtraction, multiplication, and
+                        division. There is a good chance you will recognize them by their counterparts in basic mathematics. The only
+                        symbol that might look new to you is <code>%</code>, which divides one operand by another and returns the
+                        remainder as its result.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>+</code></td>
+                                <td>Additive operator (also used for String concatenation)</td>
+                            </tr>
+                            <tr>
+                                <td><code>-</code></td>
+                                <td>Subtraction operator</td>
+                            </tr>
+                            <tr>
+                                <td><code>*</code></td>
+                                <td>Multiplication operator</td>
+                            </tr>
+                            <tr>
+                                <td><code>/</code></td>
+                                <td>Division operator</td>
+                            </tr>
+                            <tr>
+                                <td><code>%</code></td>
+                                <td>Remainder operator</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>The following program, <code>ArithmeticDemo</code>, tests the arithmetic operators.</p>
+                    <pre><code class="language-java">class ArithmeticDemo {
+
+  public static void main (String[] args) {
+
+      int result = 1 + 2;
+      // result is now 3
+      System.out.println(&quot;1 + 2 = &quot; + result);
+      int original_result = result;
+
+      result = result - 1;
+      // result is now 2
+      System.out.println(original_result + &quot; - 1 = &quot; + result);
+      original_result = result;
+
+      result = result * 2;
+      // result is now 4
+      System.out.println(original_result + &quot; * 2 = &quot; + result);
+      original_result = result;
+
+      result = result / 2;
+      // result is now 2
+      System.out.println(original_result + &quot; / 2 = &quot; + result);
+      original_result = result;
+
+      result = result + 8;
+      // result is now 10
+      System.out.println(original_result + &quot; + 8 = &quot; + result);
+      original_result = result;
+
+      result = result % 7;
+      // result is now 3
+      System.out.println(original_result + &quot; % 7 = &quot; + result);
+  }
+}
+</code></pre>
+                    <p>This program prints the following:</p>
+                    <pre><code class="language-shell">1 + 2 = 3
+3 - 1 = 2
+2 * 2 = 4
+4 / 2 = 2
+2 + 8 = 10
+10 % 7 = 3
+</code></pre>
+                    <p>
+                        You can also combine the arithmetic operators with the simple assignment operator to create compound
+                        assignments. For example, <code>x += 1;</code> and <code>x = x + 1;</code> both increment the value of
+                        <code>x</code> by 1.
+                    </p>
+                    <p>
+                        The <code>+</code> operator can also be used for concatenating (joining) two strings together, as shown in
+                        the following <code>ConcatDemo</code> program:
+                    </p>
+                    <pre><code class="language-java">class ConcatDemo {
+  public static void main(String[] args){
+      String firstString = &quot;This is&quot;;
+      String secondString = &quot; a concatenated string.&quot;;
+      String thirdString = firstString+secondString;
+      System.out.println(thirdString);
+  }
+}
+</code></pre>
+                    <p>
+                        By the end of this program, the variable <code>thirdString</code> contains
+                        <code>This is a concatenated string.</code>, which gets printed to standard output.
+                    </p>
+                    <p><a id="unary">&nbsp;</a></p>
+                    <h2 id="the-unary-operators">The Unary Operators</h2>
+                    <p>
+                        The unary operators require only one operand; they perform various operations such as
+                        incrementing/decrementing a value by one, negating an expression, or inverting the value of a boolean.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>+</code></td>
+                                <td>Unary plus operator; indicates positive value (numbers are positive without this, however)</td>
+                            </tr>
+                            <tr>
+                                <td><code>-</code></td>
+                                <td>Unary minus operator; negates an expression</td>
+                            </tr>
+                            <tr>
+                                <td><code>++</code></td>
+                                <td>Increment operator; increments a value by 1</td>
+                            </tr>
+                            <tr>
+                                <td><code>--</code></td>
+                                <td>Decrement operator; decrements a value by 1</td>
+                            </tr>
+                            <tr>
+                                <td><code>!</code></td>
+                                <td>Logical complement operator; inverts the value of a boolean</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>The following program, <code>UnaryDemo</code>, tests the unary operators:</p>
+                    <pre><code class="language-java">class UnaryDemo {
+
+  public static void main(String[] args) {
+
+      int result = +1;
+      // result is now 1
+      System.out.println(result);
+
+      result--;
+      // result is now 0
+      System.out.println(result);
+
+      result++;
+      // result is now 1
+      System.out.println(result);
+
+      result = -result;
+      // result is now -1
+      System.out.println(result);
+
+      boolean success = false;
+      // false
+      System.out.println(success);
+      // true
+      System.out.println(!success);
+  }
+}
+</code></pre>
+                    <p>
+                        The increment/decrement operators can be applied before (prefix) or after (postfix) the operand. The code
+                        <code>result++;</code> and <code>++result;</code> will both end in result being incremented by one. The only
+                        difference is that the prefix version (<code>++result</code>) evaluates to the incremented value, whereas the
+                        postfix version (<code>result++</code>) evaluates to the original value. If you are just performing a simple
+                        increment/decrement, it doesn&#39;t really matter which version you choose. But if you use this operator in
+                        part of a larger expression, the one that you choose may make a significant difference.
+                    </p>
+                    <p>The following program, <code>PrePostDemo</code>, illustrates the prefix/postfix unary increment operator:</p>
+                    <pre><code class="language-java">class PrePostDemo {
+  public static void main(String[] args){
+      int i = 3;
+      i++;
+      // prints 4
+      System.out.println(i);
+      ++i;               
+      // prints 5
+      System.out.println(i);
+      // prints 6
+      System.out.println(++i);
+      // prints 6
+      System.out.println(i++);
+      // prints 7
+      System.out.println(i);
+  }
+}
+</code></pre>
+                    <p><a id="equality-relational">&nbsp;</a></p>
+                    <h2 id="the-equality-and-relational-operators">The Equality and Relational Operators</h2>
+                    <p>
+                        The equality and relational operators determine if one operand is greater than, less than, equal to, or not
+                        equal to another operand. The majority of these operators will probably look familiar to you as well. Keep in
+                        mind that you must use <code>==</code>, not <code>=</code>, when testing if two primitive values are equal.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>==</code></td>
+                                <td>equal to</td>
+                            </tr>
+                            <tr>
+                                <td><code>!=</code></td>
+                                <td>not equal to</td>
+                            </tr>
+                            <tr>
+                                <td><code>&gt;</code></td>
+                                <td>greater than</td>
+                            </tr>
+                            <tr>
+                                <td><code>&gt;=</code></td>
+                                <td>greater than or equal to</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;</code></td>
+                                <td>less than</td>
+                            </tr>
+                            <tr>
+                                <td><code>&lt;=</code></td>
+                                <td>less than or equal to</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>The following program, <code>ComparisonDemo</code>, tests the comparison operators:</p>
+                    <pre><code class="language-java">class ComparisonDemo {
+
+  public static void main(String[] args){
+      int value1 = 1;
+      int value2 = 2;
+      if(value1 == value2)
+          System.out.println(&quot;value1 == value2&quot;);
+      if(value1 != value2)
+          System.out.println(&quot;value1 != value2&quot;);
+      if(value1 &gt; value2)
+          System.out.println(&quot;value1 &gt; value2&quot;);
+      if(value1 &lt; value2)
+          System.out.println(&quot;value1 &lt; value2&quot;);
+      if(value1 &lt;= value2)
+          System.out.println(&quot;value1 &lt;= value2&quot;);
+  }
+}
+</code></pre>
+                    <p>Running this program produces the following output: </p>
+                    <pre><code class="language-shell">value1 != value2
+value1 &lt;  value2
+value1 &lt;= value2
+</code></pre>
+                    <p><a id="conditional">&nbsp;</a></p>
+                    <h2 id="the-conditional-operators">The Conditional Operators</h2>
+                    <p>
+                        The <code>&amp;&amp;</code> and <code>&#124;&#124;</code> operators perform Conditional-AND and
+                        Conditional-OR operations on two boolean expressions. These operators exhibit &quot;short-circuiting&quot;
+                        behavior, which means that the second operand is evaluated only if needed.
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Operator</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>&amp;&amp;</code></td>
+                                <td>Conditional-AND</td>
+                            </tr>
+                            <tr>
+                                <td><code>&#124;&#124;</code></td>
+                                <td>Conditional-OR</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>The following program, <code>ConditionalDemo1</code>, tests these operators:</p>
+                    <pre><code class="language-java">class ConditionalDemo1 {
+
+  public static void main(String[] args){
+      int value1 = 1;
+      int value2 = 2;
+      if ((value1 == 1) &amp;&amp; (value2 == 2))
+          System.out.println(&quot;value1 is 1 AND value2 is 2&quot;);
+      if ((value1 == 1) || (value2 == 1))
+          System.out.println(&quot;value1 is 1 OR value2 is 1&quot;);
+  }
+}
+</code></pre>
+                    <p>
+                        Another conditional operator is <code>?:</code>, which can be thought of as shorthand for an
+                        <code>if-then-else</code> statement (discussed in the <a href="/learn/language-basics/controlling-flow/">Control Flow Statements section</a>). This operator is also
+                        known as the <em>ternary</em> operator because it uses three operands. In the following example, this operator
+                        should be read as: &quot;If someCondition is true, assign the value of value1 to result. Otherwise, assign the
+                        value of value2 to result.&quot;
+                    </p>
+                    <p>The following program, <code>ConditionalDemo2</code>, tests the <code>?:</code> operator:</p>
+                    <pre><code class="language-java">class ConditionalDemo2 {
+
+  public static void main(String[] args){
+      int value1 = 1;
+      int value2 = 2;
+      int result;
+      boolean someCondition = true;
+      result = someCondition ? value1 : value2;
+
+      System.out.println(result);
+  }
+}
+</code></pre>
+                    <p>
+                        Because <code>someCondition</code> is true, this program prints &quot;1&quot; to the screen. Use the
+                        <code>?:</code> operator instead of an <code>if-then-else</code> statement if it makes your code more
+                        readable; for example, when the expressions are compact and without side-effects (such as assignments).
+                    </p>
+                    <p><a id="instanceof">&nbsp;</a></p>
+                    <h2 id="the-type-comparison-operator-instanceof">The Type Comparison Operator Instanceof</h2>
+                    <p>
+                        The <code>instanceof</code> operator compares an object to a specified type. You can use it to test if an
+                        object is an instance of a class, an instance of a subclass, or an instance of a class that implements a
+                        particular interface.
+                    </p>
+                    <p>
+                        The following program, <code>InstanceofDemo</code>, defines a parent class (named <code>Parent</code>), a
+                        simple interface (named <code>MyInterface</code>), and a child class (named <code>Child</code>) that inherits
+                        from the parent and implements the interface.
+                    </p>
+                    <pre><code class="language-java">class InstanceofDemo {
+  public static void main(String[] args) {
+
+      Parent obj1 = new Parent();
+      Parent obj2 = new Child();
+
+      System.out.println(&quot;obj1 instanceof Parent: &quot;
+          + (obj1 instanceof Parent));
+      System.out.println(&quot;obj1 instanceof Child: &quot;
+          + (obj1 instanceof Child));
+      System.out.println(&quot;obj1 instanceof MyInterface: &quot;
+          + (obj1 instanceof MyInterface));
+      System.out.println(&quot;obj2 instanceof Parent: &quot;
+          + (obj2 instanceof Parent));
+      System.out.println(&quot;obj2 instanceof Child: &quot;
+          + (obj2 instanceof Child));
+      System.out.println(&quot;obj2 instanceof MyInterface: &quot;
+          + (obj2 instanceof MyInterface));
+  }
+}
+
+class Parent {}
+class Child extends Parent implements MyInterface {}
+interface MyInterface {}
+</code></pre>
+                    <p>The following program produces the following output:</p>
+                    <pre><code class="language-shell">obj1 instanceof Parent: true
+obj1 instanceof Child: false
+obj1 instanceof MyInterface: false
+obj2 instanceof Parent: true
+obj2 instanceof Child: true
+obj2 instanceof MyInterface: true
+</code></pre>
+                    <p>
+                        When using the <code>instanceof</code> operator, keep in mind that <code>null</code> is not an instance of
+                        anything.
+                    </p>
+                    <p><a id="bitwise-bitshift">&nbsp;</a></p>
+                    <h2 id="bitwise-and-bit-shift-operators">Bitwise and Bit Shift Operators</h2>
+                    <p>
+                        The Java programming language also provides operators that perform bitwise and bit shift operations on
+                        integral types. The operators discussed in this section are less commonly used. Therefore, their coverage is
+                        brief; the intent is to simply make you aware that these operators exist.
+                    </p>
+                    <p>
+                        The unary bitwise complement operator <code>~</code> inverts a bit pattern; it can be applied to any of the
+                        integral types, making every &quot;0&quot; a &quot;1&quot; and every &quot;1&quot; a &quot;0&quot;. For
+                        example, a byte contains 8 bits; applying this operator to a value whose bit pattern is <code>00000000</code>
+                        would change its pattern to <code>11111111</code>.
+                    </p>
+                    <p>
+                        The signed left shift operator <code>&lt;&lt;</code> shifts a bit pattern to the left, and the signed right
+                        shift operator <code>&gt;&gt;</code> shifts a bit pattern to the right. The bit pattern is given by the
+                        left-hand operand, and the number of positions to shift by the right-hand operand. The unsigned right shift
+                        operator <code>&gt;&gt;&gt;</code> shifts a zero into the leftmost position, while the leftmost position after
+                        <code>&gt;&gt;</code> depends on sign extension.
+                    </p>
+                    <p>The bitwise <code>&amp;</code> operator performs a bitwise AND operation.</p>
+                    <p>The bitwise <code>^</code> operator performs a bitwise exclusive OR operation.</p>
+                    <p>The bitwise <code>|</code> operator performs a bitwise inclusive OR operation.</p>
+                    <p>
+                        The following program, <code>BitDemo</code>, uses the bitwise AND operator to print the number &quot;2&quot;
+                        to standard output.
+                    </p>
+                    <pre><code class="language-java">class BitDemo {
+  public static void main(String[] args) {
+      int bitmask = 0x000F;
+      int val = 0x2222;
+      // prints &quot;2&quot;
+      System.out.println(val &amp; bitmask);
+  }
+}
+</code></pre>
+
+
+
+                </div>
+            </div>
+
+            <div id="sidemenu" class="col-3">
+
+                <div class="sticky-top">
+                    <div id="toc">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="card text-center m-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 1</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 2</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 2</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

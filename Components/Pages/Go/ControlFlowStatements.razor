@@ -1,0 +1,390 @@
+﻿@page "/control-flow"
+@rendermode InteractiveServer
+
+<PageTitle>Control Flow Statements</PageTitle>
+
+<div class="card-body">
+
+    
+<div class="container" id="main-content">
+
+    <h1>Control Flow Statements</h1>
+
+    
+
+    <div class="row">
+        <div id="content" class="col-9">
+            <div class="line-numbers">
+                <p><a id="if-then">&nbsp;</a></p>
+<h2 id="the-if-then-statement">The If-Then Statement</h2>
+<p>The <code>if-then</code> statement is the most basic of all the control flow statements. It tells your program to execute a certain section of code only if a particular test evaluates to <code>true</code>. For example, the <code>Bicycle</code> class could allow the brakes to decrease the bicycle&#39;s speed only if the bicycle is already in motion. One possible implementation of the <code>applyBrakes()</code> method could be as follows:</p>
+<pre><code class="language-java">void applyBrakes() {
+    // the &quot;if&quot; clause: bicycle must be moving
+    if (isMoving){
+        // the &quot;then&quot; clause: decrease current speed
+        currentSpeed--;
+    }
+}
+</code></pre>
+<p>If this test evaluates to <code>false</code> (meaning that the bicycle is not in motion), control jumps to the end of the <code>if-then</code> statement.</p>
+<p>In addition, the opening and closing braces are optional, provided that the &quot;then&quot; clause contains only one statement:</p>
+<pre><code class="language-java">void applyBrakes() {
+    // same as above, but without braces
+    if (isMoving)
+        currentSpeed--;
+}
+</code></pre>
+<p>Deciding when to omit the braces is a matter of personal taste. Omitting them can make the code more brittle. If a second statement is later added to the &quot;then&quot; clause, a common mistake would be forgetting to add the newly required braces. The compiler cannot catch this sort of error; you will just get the wrong results.</p>
+<p><a id="if-then-else">&nbsp;</a></p>
+<h2 id="the-if-then-else-statement">The If-Then-Else Statement</h2>
+<p>The <code>if-then-else</code> statement provides a secondary path of execution when an &quot;if&quot; clause evaluates to <code>false</code>. You could use an <code>if-then-else</code> statement in the <code>applyBrakes()</code> method to take some action if the brakes are applied when the bicycle is not in motion. In this case, the action is to simply print an error message stating that the bicycle has already stopped.</p>
+<pre><code class="language-java">void applyBrakes() {
+    if (isMoving) {
+        currentSpeed--;
+    } else {
+        System.err.println(&quot;The bicycle has already stopped!&quot;);
+    }
+}
+</code></pre>
+<p>The following program, <code>IfElseDemo</code>, assigns a grade based on the value of a test score: an A for a score of 90% or above, a B for a score of 80% or above, and so on.</p>
+<pre><code class="language-java">class IfElseDemo {
+    public static void main(String[] args) {
+
+        int testscore = 76;
+        char grade;
+
+        if (testscore &gt;= 90) {
+            grade = &#39;A&#39;;
+        } else if (testscore &gt;= 80) {
+            grade = &#39;B&#39;;
+        } else if (testscore &gt;= 70) {
+            grade = &#39;C&#39;;
+        } else if (testscore &gt;= 60) {
+            grade = &#39;D&#39;;
+        } else {
+            grade = &#39;F&#39;;
+        }
+        System.out.println(&quot;Grade = &quot; + grade);
+    }
+}
+</code></pre>
+<p>The output from the program is:</p>
+<pre><code class="language-shell">Grade = C
+</code></pre>
+<p>You may have noticed that the value of <code>testscore</code> can satisfy more than one expression in the compound statement: <code>76 &gt;= 70</code> and <code>76 &gt;= 60</code>. However, once a condition is satisfied, the appropriate statements are executed (<code>grade = &#39;C&#39;;</code>) and the remaining conditions are not evaluated.</p>
+<p><a id="do-while">&nbsp;</a></p>
+<h2 id="the-while-and-do-while-statements">The While and Do-while Statements</h2>
+<p>The <code>while</code> statement continually executes a block of statements while a particular condition is <code>true</code>. Its syntax can be expressed as:</p>
+<pre><code class="language-java">while (expression) {
+     statement(s)
+}
+</code></pre>
+<p>The <code>while</code> statement evaluates expression, which must return a <code>boolean</code> value. If the expression evaluates to <code>true</code>, the <code>while</code> statement executes the <code>statement(s)</code> in the while block. The <code>while</code> statement continues testing the expression and executing its block until the expression evaluates to <code>false</code>. Using the <code>while</code> statement to print the values from 1 through 10 can be accomplished as in the following <code>WhileDemo</code> program:</p>
+<pre><code class="language-java">class WhileDemo {
+    public static void main(String[] args){
+        int count = 1;
+        while (count &lt; 11) {
+            System.out.println(&quot;Count is: &quot; + count);
+            count++;
+        }
+    }
+}
+</code></pre>
+<p>You can implement an infinite loop using the <code>while</code> statement as follows:</p>
+<pre><code class="language-java">while (true){
+    // your code goes here
+}
+</code></pre>
+<p>The Java programming language also provides a <code>do-while</code> statement, which can be expressed as follows:</p>
+<pre><code class="language-java">do {
+     statement(s)
+} while (expression);
+</code></pre>
+<p>The difference between <code>do-while</code> and <code>while</code> is that <code>do-while</code> evaluates its expression at the bottom of the loop instead of the top. Therefore, the statements within the <code>do</code> block are always executed at least once, as shown in the following <code>DoWhileDemo</code> program:</p>
+<pre><code class="language-java">class DoWhileDemo {
+    public static void main(String[] args){
+        int count = 1;
+        do {
+            System.out.println(&quot;Count is: &quot; + count);
+            count++;
+        } while (count &lt; 11);
+    }
+}
+</code></pre>
+<p><a id="for">&nbsp;</a></p>
+<h2 id="the-for-statement">The For Statement</h2>
+<p>The <code>for</code> statement provides a compact way to iterate over a range of values. Programmers often refer to it as the &quot;for loop&quot; because of the way in which it repeatedly loops until a particular condition is satisfied. The general form of the <code>for</code> statement can be expressed as follows:</p>
+<pre><code class="language-java">for (initialization; termination; increment) {
+    statement(s)
+}
+</code></pre>
+<p>When using this version of the for statement, keep in mind that:</p>
+<ul>
+<li>The <em>initialization</em> expression initializes the loop; it is executed once, as the loop begins.</li>
+<li>When the <em>termination</em> expression evaluates to <code>false</code>, the loop terminates.</li>
+<li>The <em>increment</em> expression is invoked after each iteration through the loop; it is perfectly acceptable for this expression to increment <em>or</em> decrement a value.</li>
+</ul>
+<p>The following program, <code>ForDemo</code>, uses the general form of the <code>for</code> statement to print the numbers 1 through 10 to standard output:</p>
+<pre><code class="language-java">class ForDemo {
+    public static void main(String[] args){
+         for(int i = 1; i &lt; 11; i++){
+              System.out.println(&quot;Count is: &quot; + i);
+         }
+    }
+}
+</code></pre>
+<p>The output of this program is:</p>
+<pre><code class="language-shell">Count is: 1
+Count is: 2
+Count is: 3
+Count is: 4
+Count is: 5
+Count is: 6
+Count is: 7
+Count is: 8
+Count is: 9
+Count is: 10
+</code></pre>
+<p>Notice how the code declares a variable within the initialization expression. The scope of this variable extends from its declaration to the end of the block governed by the <code>for</code> statement, so it can be used in the termination and increment expressions as well. If the variable that controls a <code>for</code> statement is not needed outside of the loop, it is best to declare the variable in the initialization expression. The names <code>i</code>, <code>j</code>, and <code>k</code> are often used to control <code>for</code> loops; declaring them within the initialization expression limits their life span and reduces errors.</p>
+<p>The three expressions of the <code>for</code> loop are optional; an infinite loop can be created as follows:</p>
+<pre><code class="language-java">// infinite loop
+for ( ; ; ) {
+
+    // your code goes here
+}
+</code></pre>
+<p>The <code>for</code> statement also has another form designed for iteration through Collections and arrays. This form is sometimes referred to as the <em>enhanced for</em> statement, and can be used to make your loops more compact and easy to read. To demonstrate, consider the following array, which holds the numbers 1 through 10:</p>
+<pre><code class="language-java">int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+</code></pre>
+<p>The following program, <code>EnhancedForDemo</code>, uses the <em>enhanced for</em> to loop through the array:</p>
+<pre><code class="language-java">class EnhancedForDemo {
+    public static void main(String[] args){
+         int[] numbers =
+             {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+         for (int item : numbers) {
+             System.out.println(&quot;Count is: &quot; + item);
+         }
+    }
+}
+</code></pre>
+<p>In this example, the variable <code>item</code> holds the current value from the numbers array. The output from this program is the same as before:</p>
+<pre><code class="language-shell">Count is: 1
+Count is: 2
+Count is: 3
+Count is: 4
+Count is: 5
+Count is: 6
+Count is: 7
+Count is: 8
+Count is: 9
+Count is: 10
+</code></pre>
+<p>We recommend using this form of the <code>for</code> statement instead of the general form whenever possible.</p>
+<p><a id="break">&nbsp;</a></p>
+<h2 id="the-break-statement">The Break Statement</h2>
+<p>The <code>break</code> statement has two forms: labeled and unlabeled. You saw the unlabeled form in the previous discussion of the <code>switch</code> statement. You can also use an unlabeled <code>break</code> to terminate a <code>for</code>, <code>while</code>, or <code>do-while</code> loop, as shown in the following <code>BreakDemo</code> program:</p>
+<pre><code class="language-java">class BreakDemo {
+    public static void main(String[] args) {
+
+        int[] arrayOfInts =
+            { 32, 87, 3, 589,
+              12, 1076, 2000,
+              8, 622, 127 };
+        int searchfor = 12;
+
+        int i;
+        boolean foundIt = false;
+
+        for (i = 0; i &lt; arrayOfInts.length; i++) {
+            if (arrayOfInts[i] == searchfor) {
+                foundIt = true;
+                break;
+            }
+        }
+
+        if (foundIt) {
+            System.out.println(&quot;Found &quot; + searchfor + &quot; at index &quot; + i);
+        } else {
+            System.out.println(searchfor + &quot; not in the array&quot;);
+        }
+    }
+}
+</code></pre>
+<p>This program searches for the number 12 in an array. The <code>break</code> statement, terminates the <code>for</code> loop when that value is found. Control flow then transfers to the statement after the <code>for</code> loop. This program&#39;s output is:</p>
+<pre><code class="language-shell">Found 12 at index 4
+</code></pre>
+<p>An unlabeled <code>break</code> statement terminates the innermost <code>switch</code>, <code>for</code>, <code>while</code>, or <code>do-while</code> statement, but a labeled <code>break</code> terminates an outer statement. The following program, <code>BreakWithLabelDemo</code>, is similar to the previous program, but uses nested <code>for</code> loops to search for a value in a two-dimensional array. When the value is found, a labeled <code>break</code> terminates the outer <code>for</code> loop (labeled &quot;search&quot;):</p>
+<pre><code class="language-java">class BreakWithLabelDemo {
+    public static void main(String[] args) {
+
+        int[][] arrayOfInts = {
+            {  32,   87,    3, 589 },
+            {  12, 1076, 2000,   8 },
+            { 622,  127,   77, 955 }
+        };
+        int searchfor = 12;
+
+        int i;
+        int j = 0;
+        boolean foundIt = false;
+
+    search:
+        for (i = 0; i &lt; arrayOfInts.length; i++) {
+            for (j = 0; j &lt; arrayOfInts[i].length;
+                 j++) {
+                if (arrayOfInts[i][j] == searchfor) {
+                    foundIt = true;
+                    break search;
+                }
+            }
+        }
+
+        if (foundIt) {
+            System.out.println(&quot;Found &quot; + searchfor + &quot; at &quot; + i + &quot;, &quot; + j);
+        } else {
+            System.out.println(searchfor + &quot; not in the array&quot;);
+        }
+    }
+}
+</code></pre>
+<p>This is the output of the program.</p>
+<pre><code class="language-shell">Found 12 at 1, 0
+</code></pre>
+<p>The <code>break</code> statement terminates the labeled statement; it does not transfer the flow of control to the label. Control flow is transferred to the statement immediately following the labeled (terminated) statement.</p>
+<p><a id="continue">&nbsp;</a></p>
+<h2 id="the-continue-statement">The Continue Statement</h2>
+<p>The <code>continue</code> statement skips the current iteration of a <code>for</code>, <code>while</code>, or <code>do-while</code> loop. The unlabeled form skips to the end of the innermost loop&#39;s body and evaluates the boolean expression that controls the loop. The following program, <code>ContinueDemo</code>, steps through a <code>String</code>, counting the occurrences of the letter <code>p</code>. If the current character is not a <code>p</code>, the <code>continue</code> statement skips the rest of the loop and proceeds to the next character. If it is a <code>p</code>, the program increments the letter count.</p>
+<pre><code class="language-java">class ContinueDemo {
+    public static void main(String[] args) {
+
+        String searchMe = &quot;peter piper picked a &quot; + &quot;peck of pickled peppers&quot;;
+        int max = searchMe.length();
+        int numPs = 0;
+
+        for (int i = 0; i &lt; max; i++) {
+            // interested only in p&#39;s
+            if (searchMe.charAt(i) != &#39;p&#39;)
+                continue;
+
+            // process p&#39;s
+            numPs++;
+        }
+        System.out.println(&quot;Found &quot; + numPs + &quot; p&#39;s in the string.&quot;);
+    }
+}
+</code></pre>
+<p>Here is the output of this program:</p>
+<pre><code class="language-shell">Found 9 p&#39;s in the string.
+</code></pre>
+<p>To see this effect more clearly, try removing the <code>continue</code> statement and recompiling. When you run the program again, the count will be wrong, saying that it found 35 <code>p</code>&#39;s instead of 9.</p>
+<p>A labeled <code>continue</code> statement skips the current iteration of an outer loop marked with the given label. The following example program, <code>ContinueWithLabelDemo</code>, uses nested loops to search for a substring within another string. Two nested loops are required: one to iterate over the substring and one to iterate over the string being searched. The following program, <code>ContinueWithLabelDemo</code>, uses the labeled <code>test</code> of <code>continue</code> to skip an iteration in the outer loop.</p>
+<pre><code class="language-java">class ContinueWithLabelDemo {
+    public static void main(String[] args) {
+
+        String searchMe = &quot;Look for a substring in me&quot;;
+        String substring = &quot;sub&quot;;
+        boolean foundIt = false;
+
+        int max = searchMe.length() -
+                  substring.length();
+
+    test:
+        for (int i = 0; i &lt;= max; i++) {
+            int n = substring.length();
+            int j = i;
+            int k = 0;
+            while (n-- != 0) {
+                if (searchMe.charAt(j++) != substring.charAt(k++)) {
+                    continue test;
+                }
+            }
+            foundIt = true;
+                break test;
+        }
+        System.out.println(foundIt ? &quot;Found it&quot; : &quot;Didn&#39;t find it&quot;);
+    }
+}
+</code></pre>
+<p>Here is the output from this program.</p>
+<pre><code class="language-shell">Found it
+</code></pre>
+<p><a id="return">&nbsp;</a></p>
+<h2 id="the-return-statement">The Return Statement</h2>
+<p>The next branching statements is the <code>return</code> statement. The <code>return</code> statement exits from the current method, and control flow returns to where the method was invoked. The <code>return</code> statement has two forms: one that returns a value, and one that does not. To return a value, simply put the value (or an expression that calculates the value) after the <code>return</code> keyword.</p>
+<pre><code class="language-java">return ++count;
+</code></pre>
+<p>The data type of the returned value must match the type of the method&#39;s declared <code>return</code> value. When a method is declared <code>void</code>, use the form of <code>return</code> that doesn&#39;t return a value.</p>
+<pre><code class="language-java">return;
+</code></pre>
+<p>The Classes and Objects section will cover everything you need to know about writing methods.</p>
+<p><a id="yield">&nbsp;</a></p>
+<h2 id="the-yield-statement">The Yield Statement</h2>
+<p>The last branching statement is the <code>yield</code> statement. The <code>yield</code> statement exits from the current <code>switch</code> expression it is in. A <code>yield</code> statement is always followed by an expression that must produce a value. This expression must not be <code>void</code>. The value of this expression is the value produced by the enclosing <code>switch</code> expression.</p>
+<p>Here is an example of a <code>yield</code> statement.</p>
+<pre><code class="language-java">class Test {
+    enum Day {
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+    }
+
+    public String calculate(Day d) {
+        return switch (d) {
+            case SATURDAY, SUNDAY -&gt; &quot;week-end&quot;;
+                default -&gt; {
+                    int remainingWorkDays = 5 - d.ordinal();
+                    yield remainingWorkDays;
+                }
+            };
+    }
+}
+</code></pre>
+
+
+                
+            </div>
+        </div>
+
+        <div id="sidemenu" class="col-3">
+            
+<div class="sticky-top">
+ 
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<div class="card text-center m-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 1</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 2</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 2</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
