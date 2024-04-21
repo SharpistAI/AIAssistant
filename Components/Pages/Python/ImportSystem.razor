@@ -7,7 +7,7 @@
 @attribute [Authorize]
 
 <PageTitle>The import system</PageTitle>
-
+<AuthorizeView>
 <div class="card-body">
 
     <div class="pdf-container" style="overflow-x: hidden;">
@@ -55,6 +55,7 @@
         </div>
     </div>
 </div>
+</AuthorizeView>
 @code
 {
     string filename = "Python The import system.html";

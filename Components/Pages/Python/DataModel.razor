@@ -7,7 +7,7 @@
 @attribute [Authorize]
 
 <PageTitle>Data model</PageTitle>
-
+<AuthorizeView>
 <div class="card-body">
 
     <div class="pdf-container" style="overflow-x: hidden;">
@@ -56,6 +56,7 @@
         </div>
     </div>
 </div>
+</AuthorizeView>
 @code
 {
     string filename = "Python Data model.html";

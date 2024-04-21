@@ -7,7 +7,7 @@
 @attribute [Authorize]
 
 <PageTitle>Expressions</PageTitle>
-
+<AuthorizeView>
 <div class="card-body">
 
     <div class="pdf-container" style="overflow-x: hidden;">
@@ -20,8 +20,6 @@
     </div>
 
 </div>
-
-
 
 <div class="card text-center m-3">
     <div class="card-body">
@@ -55,6 +53,7 @@
         </div>
     </div>
 </div>
+</AuthorizeView>
 @code
 {
     string filename = "Python Expressions.html";

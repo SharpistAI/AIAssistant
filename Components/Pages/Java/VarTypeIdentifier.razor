@@ -7,7 +7,7 @@
 @attribute [Authorize]
 
 <PageTitle>Using the Var Type Identifier</PageTitle>
-
+<AuthorizeView>
 <div class="card-body">
 
     <div class="container" id="main-content">
@@ -145,6 +145,7 @@ try (var stream = Files.newInputStream(path)) {
         </div>
     </div>
 </div>
+</AuthorizeView>
 @code
 {
     string filename = "Java Using the Var Type Identifier.html";
