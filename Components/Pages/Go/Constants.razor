@@ -1,0 +1,220 @@
+﻿@page "/constants"
+@rendermode InteractiveServer
+
+<PageTitle>Constants</PageTitle>
+
+<div class="card-body">
+
+    <h2 id="Constants">Constants</h2>
+
+    <p>
+        There are <i>boolean constants</i>,
+        <i>rune constants</i>,
+        <i>integer constants</i>,
+        <i>floating-point constants</i>, <i>complex constants</i>,
+        and <i>string constants</i>. Rune, integer, floating-point,
+        and complex constants are
+        collectively called <i>numeric constants</i>.
+    </p>
+
+    <p>
+        A constant value is represented by a
+        <a href="#Rune_literals">rune</a>,
+        <a href="#Integer_literals">integer</a>,
+        <a href="#Floating-point_literals">floating-point</a>,
+        <a href="#Imaginary_literals">imaginary</a>,
+        or
+        <a href="#String_literals">string</a> literal,
+        an identifier denoting a constant,
+        a <a href="#Constant_expressions">constant expression</a>,
+        a <a href="#Conversions">conversion</a> with a result that is a constant, or
+        the result value of some built-in functions such as
+        <code>min</code> or <code>max</code> applied to constant arguments,
+        <code>unsafe.Sizeof</code> applied to <a href="#Package_unsafe">certain values</a>,
+        <code>cap</code> or <code>len</code> applied to
+        <a href="#Length_and_capacity">some expressions</a>,
+        <code>real</code> and <code>imag</code> applied to a complex constant
+        and <code>complex</code> applied to numeric constants.
+        The boolean truth values are represented by the predeclared constants
+        <code>true</code> and <code>false</code>. The predeclared identifier
+        <a href="#Iota">iota</a> denotes an integer constant.
+    </p>
+
+    <p>
+        In general, complex constants are a form of
+        <a href="#Constant_expressions">constant expression</a>
+        and are discussed in that section.
+    </p>
+
+    <p>
+        Numeric constants represent exact values of arbitrary precision and do not overflow.
+        Consequently, there are no constants denoting the IEEE-754 negative zero, infinity,
+        and not-a-number values.
+    </p>
+
+    <p>
+        Constants may be <a href="#Types">typed</a> or <i>untyped</i>.
+        Literal constants, <code>true</code>, <code>false</code>, <code>iota</code>,
+        and certain <a href="#Constant_expressions">constant expressions</a>
+        containing only untyped constant operands are untyped.
+    </p>
+
+    <p>
+        A constant may be given a type explicitly by a <a href="#Constant_declarations">constant declaration</a>
+        or <a href="#Conversions">conversion</a>, or implicitly when used in a
+        <a href="#Variable_declarations">variable declaration</a> or an
+        <a href="#Assignment_statements">assignment statement</a> or as an
+        operand in an <a href="#Expressions">expression</a>.
+        It is an error if the constant value
+        cannot be <a href="#Representability">represented</a> as a value of the respective type.
+        If the type is a type parameter, the constant is converted into a non-constant
+        value of the type parameter.
+    </p>
+
+    <p>
+        An untyped constant has a <i>default type</i> which is the type to which the
+        constant is implicitly converted in contexts where a typed value is required,
+        for instance, in a <a href="#Short_variable_declarations">short variable declaration</a>
+        such as <code>i := 0</code> where there is no explicit type.
+        The default type of an untyped constant is <code>bool</code>, <code>rune</code>,
+        <code>int</code>, <code>float64</code>, <code>complex128</code>, or <code>string</code>
+        respectively, depending on whether it is a boolean, rune, integer, floating-point,
+        complex, or string constant.
+    </p>
+
+    <p>
+        Implementation restriction: Although numeric constants have arbitrary
+        precision in the language, a compiler may implement them using an
+        internal representation with limited precision. That said, every
+        implementation must:
+    </p>
+
+    <ul>
+        <li>Represent integer constants with at least 256 bits.</li>
+
+        <li>
+            Represent floating-point constants, including the parts of
+            a complex constant, with a mantissa of at least 256 bits
+            and a signed binary exponent of at least 16 bits.
+        </li>
+
+        <li>
+            Give an error if unable to represent an integer constant
+            precisely.
+        </li>
+
+        <li>
+            Give an error if unable to represent a floating-point or
+            complex constant due to overflow.
+        </li>
+
+        <li>
+            Round to the nearest representable constant if unable to
+            represent a floating-point or complex constant due to limits
+            on precision.
+        </li>
+    </ul>
+
+    <p>
+        These requirements apply both to literal constants and to the result
+        of evaluating <a href="#Constant_expressions">
+            constant
+            expressions
+        </a>.
+    </p>
+
+
+    <h2 id="Variables">Variables</h2>
+
+    <p>
+        A variable is a storage location for holding a <i>value</i>.
+        The set of permissible values is determined by the
+        variable's <i><a href="#Types">type</a></i>.
+    </p>
+
+    <p>
+        A <a href="#Variable_declarations">variable declaration</a>
+        or, for function parameters and results, the signature
+        of a <a href="#Function_declarations">function declaration</a>
+        or <a href="#Function_literals">function literal</a> reserves
+        storage for a named variable.
+
+        Calling the built-in function <a href="#Allocation"><code>new</code></a>
+        or taking the address of a <a href="#Composite_literals">composite literal</a>
+        allocates storage for a variable at run time.
+        Such an anonymous variable is referred to via a (possibly implicit)
+        <a href="#Address_operators">pointer indirection</a>.
+    </p>
+
+    <p>
+        <i>Structured</i> variables of <a href="#Array_types">array</a>, <a href="#Slice_types">slice</a>,
+        and <a href="#Struct_types">struct</a> types have elements and fields that may
+        be <a href="#Address_operators">addressed</a> individually. Each such element
+        acts like a variable.
+    </p>
+
+    <p>
+        The <i>static type</i> (or just <i>type</i>) of a variable is the
+        type given in its declaration, the type provided in the
+        <code>new</code> call or composite literal, or the type of
+        an element of a structured variable.
+        Variables of interface type also have a distinct <i>dynamic type</i>,
+        which is the (non-interface) type of the value assigned to the variable at run time
+        (unless the value is the predeclared identifier <code>nil</code>,
+        which has no type).
+        The dynamic type may vary during execution but values stored in interface
+        variables are always <a href="#Assignability">assignable</a>
+        to the static type of the variable.
+    </p>
+
+<pre>
+var x interface{}  // x is nil and has static type interface{}
+var v *T           // v has value nil, static type *T
+x = 42             // x has value 42 and dynamic type int
+x = v              // x has value (*T)(nil) and dynamic type *T
+</pre>
+
+    <p>
+        A variable's value is retrieved by referring to the variable in an
+        <a href="#Expressions">expression</a>; it is the most recent value
+        <a href="#Assignment_statements">assigned</a> to the variable.
+        If a variable has not yet been assigned a value, its value is the
+        <a href="#The_zero_value">zero value</a> for its type.
+    </p>
+
+
+</div>
+
+<div class="card text-center m-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 1</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 2</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Question 2</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
