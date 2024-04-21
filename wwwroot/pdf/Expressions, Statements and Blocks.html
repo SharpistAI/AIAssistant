@@ -1,0 +1,118 @@
+<div class="container" id="main-content">
+  <h1>Expressions, Statements and Blocks</h1>
+  <div class="row">
+    <div id="content" class="col-9">
+      <div class="line-numbers">
+        <p><a id="expressions">&nbsp;</a></p>
+        <h2 id="expressions">Expressions</h2>
+        <p>An <em>expression</em> is a construct made up of variables, operators, and method invocations, which are
+          constructed according to the syntax of the language, that evaluates to a single value. You have already seen
+          examples of expressions, illustrated in code below:</p>
+        <pre><code class="language-java">int cadence = 0;
+anArray[0] = 100;
+System.out.println(&quot;Element 1 at index 0: &quot; + anArray[0]);
+
+int result = 1 + 2; // result is now 3
+if (value1 == value2)
+  System.out.println(&quot;value1 == value2&quot;);
+</code></pre>
+        <p>The data type of the value returned by an expression depends on the elements used in the expression. The
+          expression <code>cadence = 0</code> returns an <code>int</code> because the assignment operator returns a
+          value of the same data type as its left-hand operand; in this case, <code>cadence</code> is an
+          <code>int</code>. As you can see from the other expressions, an expression can return other types of values as
+          well, such as <code>boolean</code> or <code>String</code>.
+        </p>
+        <p>The Java programming language allows you to construct compound expressions from various smaller expressions
+          as long as the data type required by one part of the expression matches the data type of the other. Here is an
+          example of a compound expression:</p>
+        <pre><code class="language-java">1 * 2 * 3
+</code></pre>
+        <p>In this particular example, the order in which the expression is evaluated is unimportant because the result
+          of multiplication is independent of order; the outcome is always the same, no matter in which order you apply
+          the multiplications. However, this is not true of all expressions. For example, the following expression gives
+          different results, depending on whether you perform the addition or the division operation first:</p>
+        <pre><code class="language-java">x + y / 100    // ambiguous
+</code></pre>
+        <p>You can specify exactly how an expression will be evaluated using balanced parenthesis: <code>(</code> and
+          <code>)</code>. For example, to make the previous expression unambiguous, you could write the following:
+        </p>
+        <pre><code class="language-java">(x + y) / 100  // unambiguous, recommended
+</code></pre>
+        <p>If you don&#39;t explicitly indicate the order for the operations to be performed, the order is determined by
+          the precedence assigned to the operators in use within the expression. Operators that have a higher precedence
+          get evaluated first. For example, the division operator has a higher precedence than does the addition
+          operator. Therefore, the following two statements are equivalent:</p>
+        <pre><code class="language-java">x + y / 100   // ambiguous
+
+x + (y / 100) // unambiguous, recommended
+</code></pre>
+        <p>When writing compound expressions, be explicit and indicate with parentheses which operators should be
+          evaluated first. This practice makes code easier to read and to maintain.</p>
+        <p><a id="floating-point-arithmetic">&nbsp;</a></p>
+        <h2 id="floating-point-arithmetic">Floating Point Arithmetic</h2>
+        <p>Floating point arithmetic is a special world in which common operations may behave unexpectedly. Consider the
+          following code.</p>
+        <pre><code class="language-java">double d1 = 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1;
+System.out.println(&quot;d1 == 1 ? &quot; + (d1 == 1.0));
+</code></pre>
+        <p>You would probably expect that it prints <code>true</code>. Due to the way floating point addition is
+          conducted and rounded, it prints <code>false</code>.</p>
+        <p>Presenting how floating point arithmetic is implemented in Java is beyond the scope of this tutorial. If you
+          need to learn more on this topic, you may watch the following vide.</p>
+       
+        <p><a id="statements">&nbsp;</a></p>
+        <h2 id="statements">Statements</h2>
+        <p>Statements are roughly equivalent to sentences in natural languages. A statement forms a complete unit of
+          execution. The following types of expressions can be made into a statement by terminating the expression with
+          a semicolon (<code>;</code>).</p>
+        <ul>
+          <li>Assignment expressions</li>
+          <li>Any use of <code>++</code> or <code>--</code></li>
+          <li>Method invocations</li>
+          <li>Object creation expressions</li>
+          <li>Such statements are called expression statements. Here are some examples of expression statements.</li>
+        </ul>
+        <pre><code class="language-java">// assignment statement
+aValue = 8933.234;
+
+// increment statement
+aValue++;
+
+// method invocation statement
+System.out.println(&quot;Hello World!&quot;);
+
+// object creation statement
+Bicycle myBike = new Bicycle();
+</code></pre>
+        <p>In addition to expression statements, there are two other kinds of statements: declaration statements and
+          control flow statements. A declaration statement declares a variable. You have seen many examples of
+          declaration statements already:</p>
+        <pre><code class="language-java">// declaration statement
+double aValue = 8933.234;
+</code></pre>
+        <p>Finally, control flow statements regulate the order in which statements get executed. You will learn about
+          control flow statements in the next section, Control Flow Statements.</p>
+        <p><a id="blocks">&nbsp;</a></p>
+        <h2 id="blocks">Blocks</h2>
+        <p>A <em>block</em> is a group of zero or more statements between balanced braces and can be used anywhere a
+          single statement is allowed. The following example, <code>BlockDemo</code>, illustrates the use of blocks:</p>
+        <pre><code class="language-java">class BlockDemo {
+   public static void main(String[] args) {
+        boolean condition = true;
+        if (condition) { // begin block 1
+             System.out.println(&quot;Condition is true.&quot;);
+        } // end block one
+        else { // begin block 2
+             System.out.println(&quot;Condition is false.&quot;);
+        } // end block 2
+   }
+}
+</code></pre>
+      </div>
+    </div>
+
+    <div id="sidemenu" class="col-3">
+
+      <div class="sticky-top">
+        <div id="toc">
+        </div>
