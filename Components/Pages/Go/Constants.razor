@@ -1,4 +1,6 @@
 ﻿@page "/constants"
+@using AIAssistant.Model
+@using Newtonsoft.Json
 @rendermode InteractiveServer
 
 <PageTitle>Constants</PageTitle>
@@ -185,36 +187,79 @@ x = v              // x has value (*T)(nil) and dynamic type *T
 
 </div>
 
+
+
 <div class="card text-center m-3">
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Question 1</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            @foreach (var pair in questionAnswerPairs)
+            {
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question:</h5>
+                            <p class="card-text">@pair.Key</p>
+                            <input type="text" @bind="questionAnswerPairs[pair.Key]" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Question 2</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            }
+            <button @onclick="Callback">Submit</button>
+            @if (IsAnswerExist)
+            {
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Number of correct answer:</h5>
+                            <p class="card-text">@correctAnswers</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Question 2</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
+@code
+{
+    string filename = "Go Constants.html";
+    string keyword = "Go language";
+    string questionType = "FreeAnswer";
+    int correctAnswers = 0;
+    bool IsAnswerExist = false;
+    Dictionary<string, string> questionAnswerPairs = new Dictionary<string, string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = new AiClient();
+        var response = await client.GetResponseAsync(filename, keyword, questionType);
+        Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(response);
+        var questions = Parser.ParseFreeAnswer(myDeserializedClass.Content);
+        foreach (var question in questions)
+        {
+            questionAnswerPairs.Add(question, string.Empty);
+        }
+    }
+
+    private async Task EvalAnswer()
+    {
+        var client = new AiClient();
+        foreach (var questionAnswerPair in questionAnswerPairs)
+        {
+            var response = await client.EvaluateAnswerAsync(filename, keyword,questionAnswerPair.Key, questionAnswerPair.Value);
+            Root jsonObject = JsonConvert.DeserializeObject<Root>(response);
+            if (string.IsNullOrWhiteSpace(jsonObject.Content))
+            {
+                if (jsonObject.Content.Contains("True"))
+                {
+                    correctAnswers++;
+                }
+            }
+        }
+    }
+
+    private void Callback()
+    {
+        EvalAnswer().Wait();
+        StateHasChanged();
+    }
+}

@@ -1,4 +1,6 @@
 ﻿@page "/expressions"
+@using AIAssistant.Model
+@using Newtonsoft.Json
 @rendermode InteractiveServer
 
 <PageTitle>Expressions</PageTitle>
@@ -16,36 +18,51 @@
 
 </div>
 
+
+
 <div class="card text-center m-3">
     <div class="card-body">
         <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Question 1</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+            @foreach (var pair in questionAnswerPairs)
+            {
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Question:</h5>
+                            <p class="card-text">@pair.Key.Question</p>
+                            <ul>
+                                @foreach (var answer in pair.Key.Answers)
+                                {
+
+                                    <li>@answer</li>
+                                }
+                            </ul>
+                            <p class="card-text">@pair.Key.CorrectAnswer</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Question 2</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Question 2</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </div>
+@code
+{
+    string filename = "Python Expressions.html";
+    string keyword = "Python";
+    string questionType = "MultiChoice";
+    int correctAnswers = 0;
+    bool IsAnswerExist = false;
+    Dictionary<QA, string> questionAnswerPairs = new Dictionary<QA, string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = new AiClient();
+        var response = await client.GetResponseAsync(filename, keyword, questionType);
+        Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(response);
+        var questions = Parser.ParseMultiChoice(myDeserializedClass.Content);
+        foreach (var question in questions)
+        {
+            questionAnswerPairs.Add(question, string.Empty);
+        }
+    }
+}
