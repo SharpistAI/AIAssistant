@@ -1,8 +1,12 @@
 ﻿@page "/top-level-components"
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
 
+@attribute [Authorize]
+
+<AuthorizeView>
 <PageTitle>Top-level components</PageTitle>
 
 <div class="card-body">
@@ -51,6 +55,7 @@
         </div>
     </div>
 </div>
+</AuthorizeView>
 @code
 {
     string filename = "Python Top-level components.html";

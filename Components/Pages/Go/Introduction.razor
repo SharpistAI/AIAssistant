@@ -1,8 +1,11 @@
 ﻿@page "/go-introduction"
 @using System.Text.Json.Serialization
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
+
+@attribute [Authorize]
 
 <PageTitle>Introduction</PageTitle>
 

@@ -1,7 +1,10 @@
 ﻿@page "/import-system"
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
+
+@attribute [Authorize]
 
 <PageTitle>The import system</PageTitle>
 

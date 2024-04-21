@@ -1,10 +1,14 @@
 ﻿@page "/simple-statements"
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
 
+@attribute [Authorize]
+
 <PageTitle>Simple statements</PageTitle>
 
+<AuthorizeView>
 <div class="card-body">
 
     <div class="pdf-container" style="overflow-x: hidden;">
@@ -51,6 +55,7 @@
         </div>
     </div>
 </div>
+</AuthorizeView>
 @code
 {
     string filename = "Python Simple statements.html";

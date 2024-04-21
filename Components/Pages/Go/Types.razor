@@ -1,7 +1,10 @@
 ﻿@page "/types"
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
+
+@attribute [Authorize]
 
 <PageTitle>Types</PageTitle>
 

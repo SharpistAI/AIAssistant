@@ -1,7 +1,10 @@
 ﻿@page "/arrays"
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
+
+@attribute [Authorize]
 
 <PageTitle>Creating Arrays</PageTitle>
 

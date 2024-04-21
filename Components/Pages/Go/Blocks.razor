@@ -1,7 +1,10 @@
 ﻿@page "/blocks"
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
+
+@attribute [Authorize]
 
 <PageTitle>Blocks</PageTitle>
 

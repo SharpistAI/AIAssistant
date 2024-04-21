@@ -1,7 +1,10 @@
 ﻿@page "/var-type-identifier"
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
+
+@attribute [Authorize]
 
 <PageTitle>Using the Var Type Identifier</PageTitle>
 

@@ -1,7 +1,10 @@
 ﻿@page "/control-flow"
 @using AIAssistant.Model
+@using Microsoft.AspNetCore.Authorization
 @using Newtonsoft.Json
 @rendermode InteractiveServer
+
+@attribute [Authorize]
 
 <PageTitle>Control Flow Statements</PageTitle>
 
